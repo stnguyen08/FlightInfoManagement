@@ -6,7 +6,7 @@
     <groupId>cs544</groupId>
     <artifactId>flight</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>Flight Management</name>
     <description>Demo project for Spring Boot</description>
