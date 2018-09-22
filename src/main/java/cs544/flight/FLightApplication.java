@@ -3,7 +3,7 @@ package cs544.flight;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages={"org.springframework.ui", "aha"})
+@SpringBootApplication(scanBasePackages={"org.springframework.ui", "cs544"})
 //@EnableAutoConfiguration
 //@ComponentScan("org.springframework.ui", "aha")
 public class FLightApplication {

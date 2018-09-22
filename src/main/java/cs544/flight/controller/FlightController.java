@@ -37,11 +37,7 @@ public class FlightController {
 		return mav;
 	}
 	
-	/*@GetMapping(value="/carowner/sign")
-	public String carOwnerSignInForm(Model model){
-		model.addAttribute("account", new Account());
-		return "carowner/sign";
-	}*/
+
 
 	@GetMapping(value="/carowner/new")
 	public String carOwnerRegistrationForm(Model model){
