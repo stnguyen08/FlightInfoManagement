@@ -7,8 +7,8 @@ import java.util.List;
 public class Airplane {
 	@Id
 	@GeneratedValue
-	private long id;
-	private String serialnr;
+	private int id;
+	private String serialNumber;
 	private String model;
 	private int capacity;
 	@OneToMany(mappedBy="airplane")
@@ -20,26 +20,26 @@ public class Airplane {
 	}
 
 	public Airplane(String serialnr, String model, int capacity) {
-		this.serialnr = serialnr;
+		this.serialNumber = serialnr;
 		this.model = model;
 		this.capacity = capacity;
 	}
 
 	/* Getters and Setters */
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
 	public String getSerialnr() {
-		return serialnr;
+		return serialNumber;
 	}
 
 	public void setSerialnr(String serialnr) {
-		this.serialnr = serialnr;
+		this.serialNumber = serialnr;
 	}
 
 	public String getModel() {

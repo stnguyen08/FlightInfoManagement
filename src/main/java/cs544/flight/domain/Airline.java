@@ -7,7 +7,7 @@ import java.util.List;
 public class Airline {
 	@Id
 	@GeneratedValue
-	private long id;
+	private int id;
 	private String name;
 	@OneToMany(mappedBy = "airline")
 	@OrderBy("departureDate, departureTime")
@@ -22,11 +22,11 @@ public class Airline {
 	}
 
 	/* Getters & Setters */
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

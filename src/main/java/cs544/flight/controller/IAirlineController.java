@@ -15,15 +15,15 @@ public interface IAirlineController {
 
     public abstract List<Airline> getAll();
 
-    public abstract String addBook(Airline book);
+    public abstract String addBook(Airline airline);
 
-    public  abstract String add(Airline book, BindingResult result, RedirectAttributes re) ;
+    public  abstract String add(Airline airline) ;
 
-    public abstract String get(int id, Model model) ;
+    public abstract String get(int id) ;
 
-    public abstract  String update(Airline book, BindingResult result, int id) ;
+    public abstract  String update(Airline airline, int id) ;
 
-    public abstract String delete(int bookId) ;
+    public abstract String delete(int id) ;
 
 
 }
