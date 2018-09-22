@@ -8,7 +8,7 @@ import java.util.Locale;
 @Entity
 public class Flight {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	private String flightnr;
 	@Temporal(TemporalType.DATE)
@@ -157,4 +157,14 @@ public class Flight {
 		this.airplane = airplane;
 	}
 
+	@Override
+	public String toString() {
+		return "Flight{" +
+				"flightnr='" + flightnr + '\'' +
+				", departureDate=" + departureDate +
+				", departureTime=" + departureTime +
+				", arrivalDate=" + arrivalDate +
+				", arrivalTime=" + arrivalTime +
+				'}';
+	}
 }
