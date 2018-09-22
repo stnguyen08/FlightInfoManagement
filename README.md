@@ -1,2 +1,0 @@
-# FlightInfoManagement
-Flight info management

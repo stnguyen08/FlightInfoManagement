@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html layout:decorator="shared/homelayout"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="/" th:href="@{/css/homepage/index.css}" />
+    <title>Aha - New Car Rental System - New Car Owner</title>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <!--  form id="stuRegForm" method="post" action="/carowner/new" th:object="${carOwner}" -->
+        <form id="stuRegForm" method="post" action="/carowner/new">
+            <fieldset>
+                <legend>Car Owner Application Form</legend>
+                
+                <!-- div class="form-group">
+                    <label for="userName">User Name</label>
+                    <span th:if="${#fields.hasErrors('account.userName')}" th:errors="*{account.userName}"
+									class="alert alert-danger"></span>
+                    <input id="userName" name="userName" type="text" class="form-control" th:value="${account.userName}">
+                </div>
+                <div class="form-group">
+                        <label for="password">Password</label>
+                        <span th:if="${#fields.hasErrors('account.password')}" th:errors="*{account.password}"
+                            class="alert alert-danger"></span>
+                        <input id="password" name="password" type="password" class="form-control" th:value="${account.password}">
+                </div>
+                <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <span th:if="${#fields.hasErrors('account.confirmPassword')}" th:errors="*{account.confirmPassword}"
+                            class="alert alert-danger"></span>
+                        <input id="confirmPassword" name="confirmPassword" type="password" class="form-control" th:value="${account.confirmPassword}">
+                </div-->
+                
+                <input type="hidden" name="ownerId" th:value="${carOwner.ownerId}" />
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <span th:if="${#fields.hasErrors('carOwner.firstName')}" th:errors="*{carOwner.firstName}"
+									class="alert alert-danger"></span>
+                    <input id="firstName" name="firstName" type="text" class="form-control" th:value="${carOwner.firstName}">
+                </div>
+                <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <span th:if="${#fields.hasErrors('carOwner.lastName')}" th:errors="*{carOwner.lastName}"
+                            class="alert alert-danger"></span>
+                        <input id="lastName" name="lastName" type="text" class="form-control" th:value="${carOwner.lastName}">
+                </div>                
+                <div class="form-group">
+                        <label for="DOB">DOB</label>
+                        <span th:if="${#fields.hasErrors('carOwner.DOB')}" th:errors="*{carOwner.DOB}"
+                            class="alert alert-danger"></span>
+                        <input id="DOB" name="DOB" type="date" class="form-control" placeholder="mm/dd/yyyy" th:value="${carOwner.DOB}">
+                </div>                
+                <div class="form-group">
+                        <label for="emailAddress">Email</label>
+                        <span th:if="${#fields.hasErrors('carOwner.emailAddress')}" th:errors="*{carOwner.emailAddress}"
+                            class="alert alert-danger"></span>
+                        <input id="emailAddress" name="emailAddress" type="email" class="form-control" aria-describedby="emailAddressHelp" placeholder="e.g. name@domain.com" pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*" title="Email must be in the format, name@domain.tld" th:value="${carOwner.emailAddress}">
+                        <small id="emailAddressHelp" class="form-text text-muted">Enter a valid email address; in the format as specified.</small>
+                </div>
+                <div class="form-group">
+                        <label for="creditCardNumber">Credit Card Number</label>
+                        <span th:if="${#fields.hasErrors('carOwner.creditCardNumber')}" th:errors="*{carOwner.creditCardNumber}"
+                            class="alert alert-danger"></span>
+                        <input id="creditCardNumber" name="creditCardNumber" type="text" class="form-control" th:value="${carOwner.creditCardNumber}">
+                </div>                
+                <div class="form-group">
+                        <label for="creditCardExpiredDate">Credit Card Expired Date</label>
+                        <span th:if="${#fields.hasErrors('carOwner.creditCardExpiredDate')}" th:errors="*{carOwner.creditCardExpiredDate}"
+                            class="alert alert-danger"></span>
+                        <input id="creditCardExpiredDate" name="creditCardExpiredDate" type="date" class="form-control" placeholder="mm/yyyy" th:value="${carOwner.creditCardExpiredDate}">
+                </div>
+                <div style="float:right;">
+                    <a href="/" class="btn btn-outline-warning">Cancel</a>&nbsp;&nbsp;&nbsp;            
+                    <button id="btnSubmit" type="submit" class="btn btn-outline-success">Register</button>
+                </div>
+            </fieldset>
+        </form>
+    </th:block>
+
+    <th:block layout:fragment="footer"></th:block>
+    
+</body>
+</html>
