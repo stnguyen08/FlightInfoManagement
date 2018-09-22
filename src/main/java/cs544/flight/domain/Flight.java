@@ -8,7 +8,7 @@ import java.util.Locale;
 @Entity
 public class Flight {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	private String flightnr;
 	@Temporal(TemporalType.DATE)
