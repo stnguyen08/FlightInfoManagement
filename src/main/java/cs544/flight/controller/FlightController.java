@@ -22,18 +22,16 @@ import cs544.flight.service.IFlightService;
 public class FlightController {
 
 	@Autowired
-	private IFlightService flightInfoService;
+	private IFlightService flightService;
 	
-	//@RequestMapping(value="/srs/students/browse", method=RequestMethod.GET)
-	@RequestMapping(value="/home/index", method=RequestMethod.GET)
-	public ModelAndView students() {
+	//@GetMapping(value="/home/index")
+	@GetMapping(value="/")
+	public ModelAndView flights() {
 		ModelAndView mav = new ModelAndView();
-		//List<Student> students = studentService.findAll();
-		List<Flight> flights = new ArrayList<>();
-		flights.add(new Flight());
-		flights.add(new Flight());
+		List<Flight> flights = flightService.findAll();
+		//System.out.println("@@@@@@@ " + flights);
 		mav.addObject("flights", flights);
-		//mav.setViewName("/home/index");
+		mav.setViewName("/home/index");
 		return mav;
 	}
 	
@@ -54,7 +52,7 @@ public class FlightController {
 			return "carowner/new";
 		}
 		//System.out.println("@@@@@@ " + carOwner);
-		flight = flightInfoService.save(flight);
+		flight = flightService.save(flight);
 		//return "redirect:/srs/students/browse";
 		return "redirect:/";
 	}

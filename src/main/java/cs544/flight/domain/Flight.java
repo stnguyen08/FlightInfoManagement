@@ -157,4 +157,14 @@ public class Flight {
 		this.airplane = airplane;
 	}
 
+	@Override
+	public String toString() {
+		return "Flight{" +
+				"flightnr='" + flightnr + '\'' +
+				", departureDate=" + departureDate +
+				", departureTime=" + departureTime +
+				", arrivalDate=" + arrivalDate +
+				", arrivalTime=" + arrivalTime +
+				'}';
+	}
 }
