@@ -26,15 +26,13 @@ public class FlightService implements IFlightService {
 	}
 
 	@Override
-	public Flight findOne(Long id) {
+	public Flight findOne(Integer id) {
 		return flightRepository.findOne(id);
-		//return flightRepository.findById(id).get();
 	}
 
 	@Override
-	public void delete(Long id) {
+	public void delete(Integer id) {
 		flightRepository.delete(id);
-		//flightRepository.deleteById(id);
 	}
 
 }

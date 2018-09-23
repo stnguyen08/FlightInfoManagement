@@ -7,9 +7,11 @@ import javax.validation.Valid;
 
 import cs544.flight.domain.Airline;
 import cs544.flight.domain.Airplane;
+import cs544.flight.domain.Airport;
 import cs544.flight.domain.Flight;
 import cs544.flight.service.IAirlineService;
 import cs544.flight.service.IAirplaneService;
+import cs544.flight.service.IAirportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,8 +27,8 @@ public class FlightController {
 	@Autowired
 	private IFlightService flightService;
 
-//	@Autowired
-//	private IAirportService airportService;
+	@Autowired
+	private IAirportService airportService;
 
 	@Autowired
 	private IAirlineService airlineService;
@@ -35,7 +37,7 @@ public class FlightController {
 	private IAirplaneService airplaneService;
 	
 	//@GetMapping(value="/home/index")
-	@GetMapping(value="/")
+	@GetMapping(value={"/", "/home"})
 	public ModelAndView flights() {
 		ModelAndView mav = new ModelAndView();
 		List<Flight> flights = flightService.findAll();
@@ -67,18 +69,31 @@ public class FlightController {
 	}
 
 	@GetMapping(value="/flight/{id}")
-	public String editFlight(@PathVariable Long id, Model model){
+	public String get(@PathVariable Integer id, Model model){
 		Flight flight = flightService.findOne(id);
+		List<Airline> airlines = airlineService.findAll();
+		model.addAttribute("airlines", airlines);
+		List<Airplane> airplanes = airplaneService.findAll();
+		model.addAttribute("airplanes", airplanes);
+		List<Airport> airports = airportService.findAll();
+		model.addAttribute("airports", airports);
+
 		if (flight != null) {
 			model.addAttribute("flight", flight);
-			List<Airline> airlines = airlineService.getAll();
-			model.addAttribute("airlines", airlines);
-			List<Airplane> airplanes = airplaneService.getAll();
-			model.addAttribute("airplanes", airplanes);
-			System.out.println("@@@@@@@ Airplane: " + flight.getAirplane().getSerialnr());
 			return "flight/edit";
 		}
 		return "/";
+	}
+
+	@PostMapping(value="/flight/{id}", params = "edit")
+	public String editFlight(@Valid @ModelAttribute("flight") Flight flight, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("errors", bindingResult.getAllErrors());
+			System.out.println("@@@@@@@ Airplane: ");
+			return "/flight/edit";
+		}
+		this.flightService.save(flight); // flight.id already set by binding
+		return "redirect:/";
 	}
 
 	/*@RequestMapping(value = "/srs/students/edit", method = RequestMethod.POST)

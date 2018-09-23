@@ -2,7 +2,7 @@
 <html layout:decorator="shared/homelayout"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/homepage/index.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home-index.css}" />
     <title>Flight Information Management - Edit Flight</title>
 </head>
 <body>
@@ -10,7 +10,7 @@
         <link rel="stylesheet" type="text/css" th:href="@{/css/homelayout.css}" />
     </th:block>
     <th:block layout:fragment="content">
-        <form id="stuRegForm" method="post" action="/flight/edit" th:object="${flight}">
+        <form id="stuRegForm" method="post" action="/flight/{id}" th:object="${flight}">
             <fieldset>
                 <legend>Edit Flight Form</legend>
                 <input type="hidden" name="Id" th:value="${flight.id}" />
@@ -24,7 +24,7 @@
                     <label for="departureDate">Departure Date</label>
                     <span th:if="${#fields.hasErrors('departureDate')}" th:errors="*{departureDate}"
                           class="alert alert-danger"></span>
-                    <input id="departureDate" name="departureDate" type="date" class="form-control" placeholder="yyyy/mm/dd" th:value="${flight.departureDate}">
+                    <input id="departureDate" name="departureDate" type="date" class="form-control" placeholder="yyyy/mm/dd" th:value="${{flight.departureDate}}">
                 </div>
                 <div class="form-group">
                     <label for="departureTime">Departure Time</label>
@@ -80,24 +80,46 @@
                     </select>
                 </div>-->
                 <div class="form-group" th:object="${airlines}">
-                    <label class="control-label col-sm-2" for="name">Airline</label>
-                    <select class="form-control" id="airport" name="airpoart" >
-                        <option productId="airline" name="airline"
+                    <label class="control-label col-sm-2" for="airline">Airline</label>
+                    <select class="form-control" id="airline" th:name="${flight.airline}" >
+                        <option id="airlines" name="airlines"
                                 th:each="airline : ${airlines}"
                                 th:value="${airline.name}"
                                 th:text="${airline.name}"
-                                th:selected="${flight.airline.name == airline.name}"
+                                th:selected="${flight.airline.name == airline.name}">
                         </option>
                     </select>
                 </div>
                 <div class="form-group" th:object="${airplanes}">
-                    <label class="control-label col-sm-2" for="name">Airplane</label>
-                    <select class="form-control" id="airplane" name="airplane" >
-                        <option productId="airplane" name="airplanes"
+                    <label class="control-label col-sm-2" for="airplane">Airplane</label>
+                    <select class="form-control" id="airplane" th:name="${flight.airplane}" >
+                        <option id="airplanes" name="airplanes"
                                 th:each="airplane : ${airplanes}"
-                                th:value="${airplane.serialnr}"
-                                th:text="${airplane.serialnr}"
-                                th:selected="${flight.airplane.serialnr == airplane.serialnr}"
+                                th:value="${airplane.serialNumber}"
+                                th:text="${airplane.serialNumber} + ' - ' + ${airplane.model}"
+                                th:selected="${flight.airplane.serialNumber == airplane.serialNumber}" >
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group" th:object="${airports}">
+                    <label class="control-label col-sm-2" for="origin">Origin</label>
+                    <select class="form-control" id="origin" th:name="${flight.origin}" >
+                        <option th:each="airport : ${airports}"
+                                th:value="${airport.name}"
+                                th:text="${airport.airportcode} + ' - ' + ${airport.name} + ' - ' + ${airport.city} + ' - ' + ${airport.country}"
+                                th:selected="${flight.origin.name == airport.name}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group" th:object="${airports}">
+                    <label class="control-label col-sm-2" for="destination">Destination</label>
+                    <select class="form-control" id="destination" th:name="${flight.destination}" >
+                        <option th:each="airport : ${airports}"
+                                th:value="${airport.name}"
+                                th:text="${airport.airportcode} + ' - ' + ${airport.name} + ' - ' + ${airport.city} + ' - ' + ${airport.country}"
+                                th:selected="${flight.destination.name == airport.name}">
                         </option>
                     </select>
                 </div>
@@ -120,8 +142,8 @@
                         <small id="emailAddressHelp" class="form-text text-muted">Enter a valid email address; in the format as specified.</small>
                 </div>-->
                 <div style="float:right;">
-                    <a href="/srs/students/browse" class="btn btn-outline-warning">Cancel</a>&nbsp;&nbsp;&nbsp;            
-                    <button id="btnSubmit" type="submit" class="btn btn-outline-success">Edit Flight</button>
+                    <a href="/" class="btn btn-outline-warning">Cancel</a>&nbsp;&nbsp;&nbsp;
+                    <button id="btnEdit" type="submit" name="edit" class="btn btn-outline-success">Edit Flight</button>
                 </div>
             </fieldset>
         </form>
