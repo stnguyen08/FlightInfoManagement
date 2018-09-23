@@ -19,8 +19,8 @@ public class Airplane {
 	public Airplane() {
 	}
 
-	public Airplane(String serialnr, String model, int capacity) {
-		this.serialNumber = serialnr;
+	public Airplane(String serialNumber, String model, int capacity) {
+		this.serialNumber = serialNumber;
 		this.model = model;
 		this.capacity = capacity;
 	}
@@ -34,12 +34,12 @@ public class Airplane {
 		this.id = id;
 	}
 
-	public String getSerialnr() {
+	public String getSerialnumber() {
 		return serialNumber;
 	}
 
-	public void setSerialnr(String serialnr) {
-		this.serialNumber = serialnr;
+	public void setSerialnumber(String serialNumber) {
+		this.serialNumber = serialNumber;
 	}
 
 	public String getModel() {

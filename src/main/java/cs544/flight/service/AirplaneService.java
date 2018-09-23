@@ -2,6 +2,7 @@ package cs544.flight.service;
 
 import cs544.flight.domain.Airplane;
 import cs544.flight.repository.AirplaneRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 @Service
 public class AirplaneService implements IAirplaneService {
 
+    @Autowired
     private AirplaneRepository airplaneRepository;
 
     @Override

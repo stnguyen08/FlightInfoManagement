@@ -52,7 +52,7 @@ CREATE TABLE `Airplane` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `capacity` int(11) NOT NULL,
   `model` varchar(255) DEFAULT NULL,
-  `serialnr` varchar(255) DEFAULT NULL,
+  `serialnumber` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=big5;
 /*!40101 SET character_set_client = @saved_cs_client */;

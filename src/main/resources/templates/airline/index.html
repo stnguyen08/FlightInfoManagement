@@ -1,0 +1,38 @@
+<!DOCTYPE html >
+<html layout:decorator="shared/homelayout"
+	xmlns:th="http://www.thymeleaf.org">
+<body>
+	<th:block layout:fragment="header">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+	</th:block>
+	
+	<th:block layout:fragment="content">
+		<h2>Welcome to home page!</h2>
+		<a href="/airline">Create an Airline</a>
+
+		<table class="table table-striped">
+			<thead>
+				<th>ID</th>
+				<th>Name</th>
+
+			</thead>
+			<tbody>
+
+			<tr th:each="airline : ${airlines}">
+				<td th:text="${airline.Id}"></td>
+				<td th:text="${airline.name}"></td>
+
+				<td>
+					<a th:href="@{'/airline/' + ${airline.id}}">Detail</a>&nbsp;
+					<!--<a th:href="@{'/student/delete/' + ${student.studentId}}">Delete</a>-->
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</th:block>
+	
+	<th:block layout:fragment="footer">
+	</th:block>
+	
+</body>
+</html>
