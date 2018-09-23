@@ -1,7 +1,7 @@
 package cs544.flight.service.impl;
 
 import cs544.flight.domain.Airplane;
-import cs544.flight.repository.AirplaneReposistory;
+import cs544.flight.repository.AirplaneRepository;
 import cs544.flight.service.IAirplaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,26 +11,26 @@ import java.util.List;
 @Service("AirplaneService")
 public class AirplaneService implements IAirplaneService {
     @Autowired
-    AirplaneReposistory airplaneReposistory;
+    AirplaneRepository airplaneRepository;
 
 
     @Override
     public List<Airplane> findAll() {
-        return airplaneReposistory.findAll();
+        return airplaneRepository.findAll();
     }
 
     @Override
     public Airplane save(Airplane airplane) {
-        return airplaneReposistory.save(airplane);
+        return airplaneRepository.save(airplane);
     }
 
     @Override
-    public Airplane findOne(Long id) {
-        return airplaneReposistory.findOne(id);
+    public Airplane findOne(Integer id) {
+        return airplaneRepository.findOne(id);
     }
 
     @Override
-    public void delete(Long id) {
-        airplaneReposistory.delete(id);
+    public void delete(Integer id) {
+        airplaneRepository.delete(id);
     }
 }

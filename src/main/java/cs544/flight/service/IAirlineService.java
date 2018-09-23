@@ -6,14 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public interface IAirlineService {
+public interface IAirlineService extends IBaseService<Airline> {
 
-
-    public List<Airline> getAll();
-
-    public Airline save(Airline airline);
-
-    public Airline get(int id);
-
-    public void delete(int id);
 }

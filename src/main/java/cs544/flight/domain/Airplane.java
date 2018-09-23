@@ -34,11 +34,11 @@ public class Airplane {
 		this.id = id;
 	}
 
-	public String getSerialnumber() {
+	public String getSerialNumber() {
 		return serialNumber;
 	}
 
-	public void setSerialnumber(String serialNumber) {
+	public void setSerialNumber(String serialNumber) {
 		this.serialNumber = serialNumber;
 	}
 

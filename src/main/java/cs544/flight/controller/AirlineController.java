@@ -15,55 +15,65 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequestMapping(value = "/airline")
 public class AirlineController{
 
     @Autowired
     private IAirlineService airlineService;
 
-    @GetMapping(value="/airlineList")
+    @RequestMapping(value={"", "/"}, method=RequestMethod.GET)
+    public String defaultPath() {
+        return "redirect:/airline/index";
+    }
+
+    @GetMapping(value = "/index")
     public ModelAndView getAll() {
         ModelAndView mav = new ModelAndView();
-        List<Airline> airlines = airlineService.getAll();
-
+        List<Airline> airlines = airlineService.findAll();
         mav.addObject("airlines", airlines);
         mav.setViewName("/airline/index");
         return mav;
     }
 
-    @GetMapping(value = "/airline/{id}")
+    @GetMapping(value = "/new")
+    public String newAirlineForm(@Valid @ModelAttribute("airline") Airline airline) {
+        return "/airline/new";
+    }
+
+    @PostMapping(value = "/new")
+    public String addNewAirplane(@Valid @ModelAttribute("airplane") Airline airline,
+                                 BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("errors", bindingResult.getAllErrors());
+            return "/airplane/new";
+        }
+        airline = airlineService.save(airline);
+        return "redirect:/airline";
+    }
+
+    @GetMapping(value = "/{id}")
     public ModelAndView get(@PathVariable int id, Model model) {
         ModelAndView mav = new ModelAndView();
-        model.addAttribute("airline", this.airlineService.get(id));
+        model.addAttribute("airline", this.airlineService.findOne(id));
         mav.setViewName("/airline/detail");
         return mav;
     }
 
-    @PostMapping(value = "/airlines/{id}")
-    public ModelAndView update(@Valid Airline airline, BindingResult result) {
-        ModelAndView mav = new ModelAndView();
-        //String viewName="airline/";
+    @PostMapping(value = "/{id}", params = "update")
+    public String update(@Valid @ModelAttribute("airline")  Airline airline, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("errors", bindingResult.getAllErrors());
+            return "/airline/" + airline.getId();
+        }
 
-
-       // if (!result.hasErrors()) {
-            this.airlineService.save(airline); // airline.id already set by binding
-            //mav.setViewName("/airlineList");
-            //viewName = "redirect: /airlineList";
-      //  }
-        mav.setViewName("redirect:/airlineList");
-        return mav;
-
-
+        this.airlineService.save(airline); // airline.id already set by binding
+        return "redirect:/airline";
     }
 
-    @RequestMapping(value = "/addAirline", method = RequestMethod.GET)
-    public String addAirline(@ModelAttribute("airline") Airline airline) {
-        return "addAirline";
-    }
-
-    @RequestMapping(value = "/airlines/delete", method = RequestMethod.POST)
-    public String delete(int airlineId) {
-        this.airlineService.delete(airlineId);
-        return "redirect: /airlines";
+    @PostMapping(value = "/{id}", params = "delete")
+    public String delete(@PathVariable int id) {
+        this.airlineService.delete(id);
+        return "redirect:/airline";
     }
 
 }

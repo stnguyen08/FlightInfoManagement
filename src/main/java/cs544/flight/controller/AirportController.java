@@ -1,7 +1,8 @@
 package cs544.flight.controller;
 
 import cs544.flight.domain.Airplane;
-import cs544.flight.service.IAirplaneService;
+import cs544.flight.domain.Airport;
+import cs544.flight.service.IAirportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,74 +11,69 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/airplane")
-public class AirplaneController {
+@RequestMapping(value = "/airport")
+public class AirportController {
 
     @Autowired
-    private IAirplaneService airplaneService;
+    private IAirportService airportService;
 
     @RequestMapping(value={"", "/"}, method=RequestMethod.GET)
     public String defaultPath() {
-        return "redirect:/airplane/index";
+        return "redirect:/airport/index";
     }
 
     @GetMapping(value="/index")
     public ModelAndView getAll() {
         ModelAndView mav = new ModelAndView();
-        List<Airplane> airplanes = airplaneService.findAll();
+        List<Airport> airports = airportService.findAll();
 
-        mav.addObject("airplanes", airplanes);
-        mav.setViewName("/airplane/index");
+        mav.addObject("airports", airports);
+        mav.setViewName("/airport/index");
         return mav;
     }
 
     @GetMapping(value="/new")
 	public String newAirplaneForm(Model model){
-		model.addAttribute("airplane", new Airplane());
-		return "/airplane/new";
+		model.addAttribute("airport", new Airport());
+		return "/airport/new";
 	}
 
 	@PostMapping(value = "/new")
-	public String addNewAirplane(@Valid @ModelAttribute("airplane") Airplane airplane,
+	public String addNewAirplane(@Valid @ModelAttribute("airport") Airport airport,
 			BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("errors", bindingResult.getAllErrors());
-			return "/airplane/new";
+			return "/airport/new";
 		}
-		airplane = airplaneService.save(airplane);
-		return "redirect:/airplane";
+		airport = airportService.save(airport);
+		return "redirect:/airport";
 	}
 
     @GetMapping(value = "/{id}")
     public ModelAndView get(@PathVariable int id, Model model) {
         ModelAndView mav = new ModelAndView();
-        model.addAttribute("airplane", this.airplaneService.findOne(id));
-        mav.setViewName("/airplane/detail");
+        model.addAttribute("airport", this.airportService.findOne(id));
+        mav.setViewName("/airport/detail");
         return mav;
     }
 
     @PostMapping(value = "/{id}", params = "update")
-    public String update(@Valid @ModelAttribute("airplane") Airplane airplane, BindingResult bindingResult, Model model) {
+    public String update(@Valid @ModelAttribute("airport") Airport airport, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
-            return "/airplane/" + airplane.getId();
+            return "/airport/" + airport.getId();
         }
-        this.airplaneService.save(airplane); // airline.id already set by binding
+        this.airportService.save(airport); // airport.id already set by binding
 
-        return "redirect:/airplane";
+        return "redirect:/airport";
     }
 
     @PostMapping(value = "/{id}", params = "delete")
     public String delete(@PathVariable int id) {
-        this.airplaneService.delete(id);
-        return "redirect:/airplane";
+        this.airportService.delete(id);
+        return "redirect:/airport";
     }
 }
