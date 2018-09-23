@@ -1,10 +1,7 @@
 package cs544.flight.controller;
 
 import cs544.flight.domain.Airplane;
-import cs544.flight.domain.SiteUrl;
-import cs544.flight.model.FlightInfo;
 import cs544.flight.service.IAirplaneService;
-import cs544.flight.service.IFlightInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
