@@ -1,7 +1,10 @@
 package cs544.flight.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.text.DateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Locale;
 
@@ -13,6 +16,8 @@ public class Flight {
 	private String flightnr;
 	@Temporal(TemporalType.DATE)
 	private Date departureDate;
+//	@DateTimeFormat(pattern = "yyyy-MM-dd")
+//	private LocalDate departureDate;
 	@Temporal(TemporalType.TIME)
 	private Date departureTime;
 	@Temporal(TemporalType.DATE)
@@ -40,20 +45,20 @@ public class Flight {
 	public Flight(String flightnr, String departureDate, String departureTime,
 			String arrivalDate, String arrivalTime) {
 		this.flightnr = flightnr;
-		setDepartureDate(departureDate);
-		setDepartureTime(departureTime);
-		setArrivalDate(arrivalDate);
-		setArrivalTime(arrivalTime);
+		//setDepartureDate(departureDate);
+		//setDepartureTime(departureTime);
+		//setArrivalDate(arrivalDate);
+		//setArrivalTime(arrivalTime);
 	}
 
 	public Flight(String flightnr, String departureDate, String departureTime,
 			String arrivalDate, String arrivalTime, Airline airline,
 			Airport origin, Airport destination, Airplane airplane) {
 		this.flightnr = flightnr;
-		setDepartureDate(departureDate);
-		setDepartureTime(departureTime);
-		setArrivalDate(arrivalDate);
-		setArrivalTime(arrivalTime);
+		//setDepartureDate(departureDate);
+		//setDepartureTime(departureTime);
+		//setArrivalDate(arrivalDate);
+		//setArrivalTime(arrivalTime);
 		this.airline = airline;
 		this.origin = origin;
 		this.destination = destination;
@@ -77,7 +82,7 @@ public class Flight {
 		this.flightnr = flightnr;
 	}
 
-	public String getDepartureDate() {
+	/*public String getDepartureDate() {
 		return df.format(departureDate);
 	}
 
@@ -87,9 +92,17 @@ public class Flight {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}*/
+
+	public Date getDepartureDate() {
+		return departureDate;
 	}
 
-	public String getDepartureTime() {
+	public void setDepartureDate(Date departureDate) {
+		this.departureDate = departureDate;
+	}
+
+	/*public String getDepartureTime() {
 		return tf.format(departureTime);
 	}
 
@@ -99,9 +112,17 @@ public class Flight {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}*/
+
+	public Date getDepartureTime() {
+		return departureTime;
 	}
 
-	public String getArrivalDate() {
+	public void setDepartureTime(Date departureTime) {
+		this.departureTime = departureTime;
+	}
+
+	/*public String getArrivalDate() {
 		return df.format(arrivalDate);
 	}
 
@@ -111,9 +132,17 @@ public class Flight {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}*/
+
+	public Date getArrivalDate() {
+		return arrivalDate;
 	}
 
-	public String getArrivalTime() {
+	public void setArrivalDate(Date arrivalDate) {
+		this.arrivalDate = arrivalDate;
+	}
+
+	/*public String getArrivalTime() {
 		return tf.format(arrivalTime);
 	}
 
@@ -123,6 +152,14 @@ public class Flight {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}*/
+
+	public Date getArrivalTime() {
+		return arrivalTime;
+	}
+
+	public void setArrivalTime(Date arrivalTime) {
+		this.arrivalTime = arrivalTime;
 	}
 
 	public Airline getAirline() {

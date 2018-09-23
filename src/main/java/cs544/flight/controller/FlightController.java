@@ -5,15 +5,16 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import cs544.flight.domain.Airline;
+import cs544.flight.domain.Airplane;
 import cs544.flight.domain.Flight;
+import cs544.flight.service.IAirlineService;
+import cs544.flight.service.IAirplaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import cs544.flight.service.IFlightService;
@@ -23,6 +24,15 @@ public class FlightController {
 
 	@Autowired
 	private IFlightService flightService;
+
+//	@Autowired
+//	private IAirportService airportService;
+
+	@Autowired
+	private IAirlineService airlineService;
+
+	@Autowired
+	private IAirplaneService airplaneService;
 	
 	//@GetMapping(value="/home/index")
 	@GetMapping(value="/")
@@ -34,7 +44,6 @@ public class FlightController {
 		mav.setViewName("/home/index");
 		return mav;
 	}
-	
 
 	@GetMapping(value="/carowner/new")
 	public String carOwnerRegistrationForm(Model model){
@@ -57,17 +66,22 @@ public class FlightController {
 		return "redirect:/";
 	}
 
-	/*@RequestMapping(value="/srs/students/edit/{id}", method = RequestMethod.GET)
-	public String editStudent(@PathVariable Long id, Model model){
-		Student s = studentService.findById(id);
-		if (s != null) {
-			model.addAttribute("student", s);
-			return "students/edit";
+	@GetMapping(value="/flight/{id}")
+	public String editFlight(@PathVariable Long id, Model model){
+		Flight flight = flightService.findOne(id);
+		if (flight != null) {
+			model.addAttribute("flight", flight);
+			List<Airline> airlines = airlineService.getAll();
+			model.addAttribute("airlines", airlines);
+			List<Airplane> airplanes = airplaneService.getAll();
+			model.addAttribute("airplanes", airplanes);
+			System.out.println("@@@@@@@ Airplane: " + flight.getAirplane().getSerialnr());
+			return "flight/edit";
 		}
-		return "students/browse";
+		return "/";
 	}
 
-	@RequestMapping(value = "/srs/students/edit", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/srs/students/edit", method = RequestMethod.POST)
 	public String updateStudent(@Valid @ModelAttribute("student") Student student,
 			BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
