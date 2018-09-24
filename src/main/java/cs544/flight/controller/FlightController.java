@@ -90,14 +90,17 @@ public class FlightController {
 	public String editFlight(@Valid @ModelAttribute("flight") Flight flight,
 							 //@ModelAttribute("airline") Airline airline,
 							 BindingResult bindingResult, Model model) {
-		System.out.println("@@@@@@@ Flight: " + flight);
-		System.out.println("@@@@@@@ Airline: " + flight.getAirline().getId() + ", " + flight.getAirline().getName());
+//		System.out.println("@@@@@@@ Flight: " + flight);
+//		System.out.println("@@@@@@@ Airline: " + flight.getAirline().getId() + ", " + flight.getAirline().getName());
+//		System.out.println("@@@@@@@ Airplane: " + flight.getAirplane().getId() + ", " + flight.getAirplane().getSerialNumber());
+		//System.out.println("@@@@@@@ Departure: " + flight.getOrigin());
+//		System.out.println("@@@@@@@ Departure: " + flight.getOrigin().getId() + ", " + flight.getOrigin().getName());
+//		System.out.println("@@@@@@@ Destination: " + flight.getDestination().getId() + ", " + flight.getDestination().getName());
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("errors", bindingResult.getAllErrors());
 			return "/flight/edit";
 		}
-
-		//this.flightService.save(flight); // flight.id already set by binding
+		this.flightService.save(flight); // flight.id already set by binding
 		return "redirect:/";
 	}
 
