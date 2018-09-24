@@ -3,16 +3,25 @@ package cs544.flight.logging;
 import java.util.logging.Logger;
 
 public class SystemLogger implements ISystemLogger {
-    private static String LOGGER = "CONTROLLER";
-    private static Logger logger = Logger.getLogger(LOGGER);
+    private static Logger logger; // = Logger.getLogger(LOGGER);
 
     private static SystemLogger ourInstance = new SystemLogger();
 
-    public static SystemLogger getControllerLogger() {
+    public static SystemLogger getLogger(String loggerName) {
+        ourInstance.setLoggerName(loggerName);
         return ourInstance;
+
     }
 
     private SystemLogger() {
+    }
+
+    private static void setLoggerName(String loggerName) {
+        if(loggerName == null || loggerName.isEmpty()) {
+            logger = Logger.getLogger(SystemLogger.class.getName());
+        } else {
+            logger = Logger.getLogger(loggerName);
+        }
     }
 
     @Override

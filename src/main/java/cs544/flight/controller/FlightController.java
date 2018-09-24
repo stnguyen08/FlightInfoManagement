@@ -47,22 +47,27 @@ public class FlightController {
 		return mav;
 	}
 
-	@GetMapping(value="/carowner/new")
-	public String carOwnerRegistrationForm(Model model){
-		//model.addAttribute("account", new Account());
-		model.addAttribute("carOwner", new Flight());
-		return "carowner/new";
+	@GetMapping(value="/flight/new")
+	public String newFlightForm(Model model){
+		model.addAttribute("flight", new Flight());
+		model.addAttribute("airlines", airlineService.findAll());
+		model.addAttribute("airplanes", airplaneService.findAll());
+		model.addAttribute("airports", airportService.findAll());
+		return "/flight/new";
 	}
 
-	@RequestMapping(value = "/carowner/new", method = RequestMethod.POST)
-	public String registerNewStudent(@Valid @ModelAttribute("carOwner") Flight flight,
-			//@Valid @ModelAttribute("account") Account account,
+	@RequestMapping(value = "/flight/new", method = RequestMethod.POST)
+	public String scheduleNewFlight(@Valid @ModelAttribute("flight") Flight flight,
 			BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("errors", bindingResult.getAllErrors());
-			return "carowner/new";
+			return "/flight/new";
 		}
-		//System.out.println("@@@@@@ " + carOwner);
+		System.out.println("@@@@@@ " + flight);
+		System.out.println("@@@@@@ " + flight.getAirline());
+		System.out.println("@@@@@@ " + flight.getAirplane());
+		System.out.println("@@@@@@ " + flight.getOrigin());
+		System.out.println("@@@@@@ " + flight.getDestination());
 		flight = flightService.save(flight);
 		//return "redirect:/srs/students/browse";
 		return "redirect:/";
