@@ -1,5 +1,7 @@
 package cs544.flight.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,6 +10,7 @@ public class Airline {
 	@Id
 	@GeneratedValue
 	private int id;
+	@NotEmpty(message = "should not be empty")
 	private String name;
 	@OneToMany(mappedBy = "airline")
 	@OrderBy("departureDate, departureTime")

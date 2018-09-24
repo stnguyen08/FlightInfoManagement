@@ -1,5 +1,6 @@
 package cs544.flight.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ public class Flight {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	@NotEmpty(message = "should not be empty")
 	private String flightnr;
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

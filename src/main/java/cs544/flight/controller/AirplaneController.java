@@ -68,7 +68,7 @@ public class AirplaneController {
     public String update(@Valid @ModelAttribute("airplane") Airplane airplane, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
-            return "/airplane/" + airplane.getId();
+            return "/airplane/detail";
         }
         this.airplaneService.save(airplane); // airline.id already set by binding
 

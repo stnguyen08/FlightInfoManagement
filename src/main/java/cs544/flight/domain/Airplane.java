@@ -1,5 +1,8 @@
 package cs544.flight.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,8 +11,11 @@ public class Airplane {
 	@Id
 	@GeneratedValue
 	private int id;
+	@NotEmpty(message = "should not be empty")
 	private String serialNumber;
+	@NotEmpty(message = "should not be empty")
 	private String model;
+	@Range(min = 0,max = 853)
 	private int capacity;
 	@OneToMany(mappedBy="airplane")
 	@OrderBy("departureDate, departureTime")

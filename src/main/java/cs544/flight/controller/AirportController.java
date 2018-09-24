@@ -64,7 +64,7 @@ public class AirportController {
     public String update(@Valid @ModelAttribute("airport") Airport airport, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
-            return "/airport/" + airport.getId();
+            return "/airport/detail";
         }
         this.airportService.save(airport); // airport.id already set by binding
 

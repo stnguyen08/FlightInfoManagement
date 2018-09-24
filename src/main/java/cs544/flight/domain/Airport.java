@@ -1,5 +1,7 @@
 package cs544.flight.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,9 +10,13 @@ public class Airport {
 	@Id
 	@GeneratedValue
 	private int id;
+	@NotEmpty(message = "should not be empty")
 	private String airportcode;
+	@NotEmpty(message = "should not be empty")
 	private String name;
+	@NotEmpty(message = "should not be empty")
 	private String city;
+	@NotEmpty(message = "should not be empty")
 	private String country;
 	@OneToMany(mappedBy = "destination")
 	@OrderBy("arrivalDate, arrivalTime")
@@ -31,7 +37,7 @@ public class Airport {
 	}
 
 	/* Getters & Setters */
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 

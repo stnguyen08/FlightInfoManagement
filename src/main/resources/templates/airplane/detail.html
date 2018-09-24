@@ -13,25 +13,25 @@
                 <legend>Airplane Information</legend>
                 <div class="form-group">
                     <label >ID</label>
-                    <input type="text" disabled="true" name="id" class="form-control" th:value="${airplane.id}" />
+                    <input type="text" disabled="true" th:field="*{id}" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label >Serial Number</label>
-                    <span th:if="${#fields.hasErrors('serialNumber')}" th:errors="*{airplane.serialNumber}"
+                    <span th:if="${#fields.hasErrors('serialNumber')}" th:errors="*{serialNumber}"
 									class="alert alert-danger"></span>
-                    <input id="serialNumber" name="serialNumber" type="text" class="form-control" th:value="${airplane.serialNumber}">
+                    <input id="serialNumber"  th:field="*{serialNumber}" type="text" class="form-control" >
                 </div>
                 <div class="form-group">
                     <label>Model</label>
                     <span th:if="${#fields.hasErrors('model')}" th:errors="*{model}"
                           class="alert alert-danger"></span>
-                    <input id="model" name="model" type="text" class="form-control" th:value="${airplane.model}">
+                    <input id="model" th:field="*{model}" type="text" class="form-control" >
                 </div>
                 <div class="form-group">
-                    <label>Model</label>
-                    <span th:if="${#fields.hasErrors('capacity')}" th:errors="*{airplane.capacity}"
+                    <label>Capacity</label>
+                    <span th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}"
                           class="alert alert-danger"></span>
-                    <input id="capacity" name="capacity" type="number" class="form-control" th:value="${airplane.capacity}">
+                    <input id="capacity" th:field="*{capacity}" type="number" class="form-control" >
                 </div>
 
                 <div style="float:right;">
