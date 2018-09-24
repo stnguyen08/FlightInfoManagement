@@ -85,14 +85,19 @@ public class FlightController {
 		return "/";
 	}
 
-	@PostMapping(value="/flight/{id}", params = "edit")
-	public String editFlight(@Valid @ModelAttribute("flight") Flight flight, BindingResult bindingResult, Model model) {
+	//@PostMapping(value="/flight/{id}", params = "edit")
+	@PostMapping(value="/flight")
+	public String editFlight(@Valid @ModelAttribute("flight") Flight flight,
+							 //@ModelAttribute("airline") Airline airline,
+							 BindingResult bindingResult, Model model) {
+		System.out.println("@@@@@@@ Flight: " + flight);
+		System.out.println("@@@@@@@ Airline: " + flight.getAirline().getId() + ", " + flight.getAirline().getName());
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("errors", bindingResult.getAllErrors());
-			System.out.println("@@@@@@@ Airplane: ");
 			return "/flight/edit";
 		}
-		this.flightService.save(flight); // flight.id already set by binding
+
+		//this.flightService.save(flight); // flight.id already set by binding
 		return "redirect:/";
 	}
 

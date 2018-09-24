@@ -15,14 +15,19 @@ public class Flight {
 	private int id;
 	private String flightnr;
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date departureDate;
 //	@DateTimeFormat(pattern = "yyyy-MM-dd")
 //	private LocalDate departureDate;
 	@Temporal(TemporalType.TIME)
+	@DateTimeFormat(pattern = "HH:mm")
 	private Date departureTime;
+
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date arrivalDate;
 	@Temporal(TemporalType.TIME)
+	@DateTimeFormat(pattern = "HH:mm")
 	private Date arrivalTime;
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Airline airline;
