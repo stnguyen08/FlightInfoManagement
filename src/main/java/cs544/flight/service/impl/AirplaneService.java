@@ -5,10 +5,13 @@ import cs544.flight.repository.AirplaneRepository;
 import cs544.flight.service.IAirplaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service("AirplaneService")
+@Transactional(propagation = Propagation.REQUIRES_NEW)
 public class AirplaneService implements IAirplaneService {
     @Autowired
     AirplaneRepository airplaneRepository;

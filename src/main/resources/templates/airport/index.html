@@ -22,6 +22,7 @@
         </thead>
         <tbody>
         <tr th:each="airport : ${airports}">
+            <td th:text="${airport.id}"></td>
             <td th:text="${airport.airportcode}"></td>
             <td th:text="${airport.name}"></td>
             <td th:text="${airport.city}"></td>
