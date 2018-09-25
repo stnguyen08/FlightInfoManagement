@@ -41,11 +41,11 @@ public class AirlineController{
     }
 
     @PostMapping(value = "/new")
-    public String addNewAirplane(@Valid @ModelAttribute("airplane") Airline airline,
+    public String addNewAirplane(@Valid @ModelAttribute("airline") Airline airline,
                                  BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
-            return "/airplane/new";
+            return "/airline/new";
         }
         airline = airlineService.save(airline);
         return "redirect:/airline";

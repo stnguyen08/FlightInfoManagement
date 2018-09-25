@@ -13,8 +13,20 @@ import org.springframework.stereotype.Component;
 public class SystemMonitorAspect {
 
 //    @Pointcut("within(cs544.flight.controller..*)")
-    @After("execution(* cs544.flight..*(..))")
+    @After("execution(* cs544.flight.controller.*.*(..))")
     public void inControllerLayer(JoinPoint joinPoint) {
+        String method = joinPoint.getSignature().getName() + "()";
+        SystemLogger.getLogger(joinPoint.getTarget().getClass().getName()).info("executed " + method);
+    }
+
+    @After("execution(* cs544.flight.service.*.*(..))")
+    public void inServiceLayer(JoinPoint joinPoint) {
+        String method = joinPoint.getSignature().getName() + "()";
+        SystemLogger.getLogger(joinPoint.getTarget().getClass().getName()).info("executed " + method);
+    }
+
+    @After("execution(* cs544.flight.repository.*.*(..))")
+    public void inRepositoryLayer(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName() + "()";
         SystemLogger.getLogger(joinPoint.getTarget().getClass().getName()).info("executed " + method);
     }
