@@ -55,45 +55,44 @@
                     <label for="airline">Airline</label>
                     <!--<select class="form-control" id="airline" th:name="${flight.airline}" >-->
                     <select class="form-control" th:field="${flight.airline.id}" >
-                        <!--<option id="airlines" name="airlines"-->
-                        <option
-                                th:each="airline : ${airlines}"
+                        <option th:each="airline : ${airlines}"
                                 th:value="${airline.id}"
                                 th:text="${airline.name}"
-                                th:selected="${flight.airline.name == airline.name}">
+                                th:selected="${flight.airline.id == airline.id}">
                         </option>
                     </select>
                 </div>
-                <div class="form-group" th:object="${airplanes}">
+                <div class="form-group">
                     <label for="airplane">Airplane</label>
-                    <select class="form-control" id="airplane" th:name="${flight.airplane}" >
-                        <option id="airplanes" name="airplanes"
-                                th:each="airplane : ${airplanes}"
-                                th:value="${airplane.serialNumber}"
+                    <select class="form-control" th:field="${flight.airplane.id}" >
+                        <option th:each="airplane : ${airplanes}"
+                                th:value="${airplane.id}"
                                 th:text="${airplane.serialNumber} + ' - ' + ${airplane.model}"
-                                th:selected="${flight.airplane.serialNumber == airplane.serialNumber}" >
+                                th:selected="${flight.airplane.id == airplane.id}" >
                         </option>
                     </select>
                 </div>
 
-                <div class="form-group" th:object="${airports}">
+                <div class="form-group" >
                     <label for="origin">Departure</label>
-                    <select class="form-control" id="origin" th:name="${flight.origin}" >
+                    <!--<select class="form-control" th:field="${flight.origin.id}" >-->
+                    <select class="form-control" th:field="${flight.origin.id}">
                         <option th:each="airport : ${airports}"
-                                th:value="${airport.name}"
+                                th:value="${airport.id}"
                                 th:text="${airport.airportcode} + ' - ' + ${airport.name} + ' - ' + ${airport.city} + ' - ' + ${airport.country}"
-                                th:selected="${flight.origin.name == airport.name}">
+                                th:selected="${flight.origin.id == airport.id}">
                         </option>
                     </select>
                 </div>
 
-                <div class="form-group" th:object="${airports}">
+                <div class="form-group" >
                     <label for="destination">Destination</label>
-                    <select class="form-control" id="destination" th:name="${flight.destination}" >
+                    <select class="form-control" th:field="${flight.destination.id}" >
+                    <!--<select class="form-control"  >-->
                         <option th:each="airport : ${airports}"
-                                th:value="${airport.name}"
+                                th:value="${airport.id}"
                                 th:text="${airport.airportcode} + ' - ' + ${airport.name} + ' - ' + ${airport.city} + ' - ' + ${airport.country}"
-                                th:selected="${flight.destination.name == airport.name}">
+                                th:selected="${flight.destination.id == airport.id}">
                         </option>
                     </select>
                 </div>
