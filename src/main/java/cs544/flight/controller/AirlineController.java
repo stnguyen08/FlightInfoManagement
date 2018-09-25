@@ -3,6 +3,7 @@ package cs544.flight.controller;
 import cs544.flight.domain.Airline;
 
 
+import cs544.flight.domain.Airplane;
 import cs544.flight.service.IAirlineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,16 +37,17 @@ public class AirlineController{
     }
 
     @GetMapping(value = "/new")
-    public String newAirlineForm(@Valid @ModelAttribute("airline") Airline airline) {
+    public String newAirlineForm(Model model) {
+        model.addAttribute("airline", new Airline());
         return "/airline/new";
     }
 
     @PostMapping(value = "/new")
-    public String addNewAirplane(@Valid @ModelAttribute("airline") Airline airline,
+    public String addNewAirline(@Valid @ModelAttribute("airline") Airline airline,
                                  BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
-            return "/airline/new";
+            return "/airpline/new";
         }
         airline = airlineService.save(airline);
         return "redirect:/airline";
