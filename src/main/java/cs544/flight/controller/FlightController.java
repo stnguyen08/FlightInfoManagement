@@ -36,12 +36,10 @@ public class FlightController {
 	@Autowired
 	private IAirplaneService airplaneService;
 	
-	//@GetMapping(value="/home/index")
 	@GetMapping(value={"/", "/home"})
 	public ModelAndView flights() {
 		ModelAndView mav = new ModelAndView();
 		List<Flight> flights = flightService.findAll();
-		//System.out.println("@@@@@@@ " + flights);
 		mav.addObject("flights", flights);
 		mav.setViewName("/home/index");
 		return mav;
@@ -63,13 +61,7 @@ public class FlightController {
 			model.addAttribute("errors", bindingResult.getAllErrors());
 			return "/flight/new";
 		}
-		System.out.println("@@@@@@ " + flight);
-		System.out.println("@@@@@@ " + flight.getAirline());
-		System.out.println("@@@@@@ " + flight.getAirplane());
-		System.out.println("@@@@@@ " + flight.getOrigin());
-		System.out.println("@@@@@@ " + flight.getDestination());
 		flight = flightService.save(flight);
-		//return "redirect:/srs/students/browse";
 		return "redirect:/";
 	}
 
@@ -90,17 +82,9 @@ public class FlightController {
 		return "/";
 	}
 
-	//@PostMapping(value="/flight/{id}", params = "edit")
 	@PostMapping(value="/flight")
 	public String editFlight(@Valid @ModelAttribute("flight") Flight flight,
-							 //@ModelAttribute("airline") Airline airline,
 							 BindingResult bindingResult, Model model) {
-//		System.out.println("@@@@@@@ Flight: " + flight);
-//		System.out.println("@@@@@@@ Airline: " + flight.getAirline().getId() + ", " + flight.getAirline().getName());
-//		System.out.println("@@@@@@@ Airplane: " + flight.getAirplane().getId() + ", " + flight.getAirplane().getSerialNumber());
-		//System.out.println("@@@@@@@ Departure: " + flight.getOrigin());
-//		System.out.println("@@@@@@@ Departure: " + flight.getOrigin().getId() + ", " + flight.getOrigin().getName());
-//		System.out.println("@@@@@@@ Destination: " + flight.getDestination().getId() + ", " + flight.getDestination().getName());
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("errors", bindingResult.getAllErrors());
 			return "/flight/edit";
@@ -109,14 +93,12 @@ public class FlightController {
 		return "redirect:/";
 	}
 
-	/*@RequestMapping(value = "/srs/students/edit", method = RequestMethod.POST)
-	public String updateStudent(@Valid @ModelAttribute("student") Student student,
-			BindingResult bindingResult, Model model) {
-		if (bindingResult.hasErrors()) {
-			model.addAttribute("errors", bindingResult.getAllErrors());
-			return "students/edit";
-		}
-		student = studentService.save(student);
-		return "redirect:/srs/students/browse";
-	}*/
+	// Only search by departure date
+	@PostMapping(value = "/flight/search")
+	public ModelAndView defaultSearchForFlights(@RequestParam String criteria) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("flights", flightService.search(criteria));
+		mav.setViewName("/flight/search");
+		return mav;
+	}
 }
