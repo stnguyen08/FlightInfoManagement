@@ -56,7 +56,7 @@ public class FlightService implements IFlightService {
         Specification<Flight> flightSpec = null;
 
         for (String c : str) {
-            System.out.println(c);
+            if(c.isEmpty() || c.length() <= 3) continue;;
             String code = c.substring(0, 2);
             String opt = c.substring(2, 3);
             String value = c.substring(3);
@@ -65,9 +65,9 @@ public class FlightService implements IFlightService {
                 case "FN": {
                     if(!value.isEmpty()) {
                         if(flightSpec == null) {
-                            flightSpec = FlightSpecification.flightNr(value);
+                            flightSpec = FlightSpecification.flightNrLike(value);
                         } else {
-                            flightSpec = Specifications.where(flightSpec).or(FlightSpecification.flightNr(value));
+                            flightSpec = Specifications.where(flightSpec).or(FlightSpecification.flightNrLike(value));
                         }
                     }
                     break;
@@ -77,7 +77,7 @@ public class FlightService implements IFlightService {
                         if(flightSpec == null) {
                             flightSpec = FlightSpecification.departureDate(parseDate(value));
                         } else {
-                            flightSpec = Specifications.where(flightSpec).or(FlightSpecification.departureDate(parseDate(value)));
+                            flightSpec = Specifications.where(flightSpec).and(FlightSpecification.departureDate(parseDate(value)));
                         }
                     }
                     break;
@@ -87,7 +87,7 @@ public class FlightService implements IFlightService {
                         if(flightSpec == null) {
                             flightSpec = FlightSpecification.departureTime(parseTime(value));
                         } else {
-                            flightSpec = Specifications.where(flightSpec).or(FlightSpecification.departureTime(parseTime(value)));
+                            flightSpec = Specifications.where(flightSpec).and(FlightSpecification.departureTime(parseTime(value)));
                         }
                     }
                     break;
@@ -97,7 +97,7 @@ public class FlightService implements IFlightService {
                         if(flightSpec == null) {
                             flightSpec = FlightSpecification.arrivalDate(parseDate(value));
                         } else {
-                            flightSpec = Specifications.where(flightSpec).or(FlightSpecification.arrivalDate(parseDate(value)));
+                            flightSpec = Specifications.where(flightSpec).and(FlightSpecification.arrivalDate(parseDate(value)));
                         }
                     }
                     break;
@@ -107,7 +107,27 @@ public class FlightService implements IFlightService {
                         if(flightSpec == null) {
                             flightSpec = FlightSpecification.arrivalTime(parseTime(value));
                         } else {
-                            flightSpec = Specifications.where(flightSpec).or(FlightSpecification.arrivalTime(parseTime(value)));
+                            flightSpec = Specifications.where(flightSpec).and(FlightSpecification.arrivalTime(parseTime(value)));
+                        }
+                    }
+                    break;
+                }
+                case "DC": {
+                    if(value != null) {
+                        if(flightSpec == null) {
+                            flightSpec = FlightSpecification.originCity(value);
+                        } else {
+                            flightSpec = Specifications.where(flightSpec).and(FlightSpecification.originCity(value));
+                        }
+                    }
+                    break;
+                }
+                case "AC": {
+                    if(value != null) {
+                        if(flightSpec == null) {
+                            flightSpec = FlightSpecification.destinationCity(value);
+                        } else {
+                            flightSpec = Specifications.where(flightSpec).and(FlightSpecification.destinationCity(value));
                         }
                     }
                     break;

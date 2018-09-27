@@ -1,12 +1,10 @@
 package cs544.flight.repository;
 
+import cs544.flight.domain.Airport;
 import cs544.flight.domain.Flight;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.*;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -20,6 +18,18 @@ public final class FlightSpecification {
         return new Specification<Flight>() {
             public Predicate toPredicate(Root<Flight> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 return cb.equal(root.get("flightnr"), flightnr);
+            }
+        };
+    }
+
+    public static Specification<Flight> flightNrLike(String flightnr) {
+        return new Specification<Flight>() {
+            public Predicate toPredicate(Root<Flight> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                if(flightnr.contains("%")) {
+                    return cb.like(root.get("flightnr"), flightnr);
+                } else {
+                    return cb.like(root.get("flightnr"), flightnr + "%");
+                }
             }
         };
     }
@@ -52,6 +62,24 @@ public final class FlightSpecification {
         return new Specification<Flight>() {
             public Predicate toPredicate(Root<Flight> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 return cb.equal(root.get("arrivalTime"), arrivalTime);
+            }
+        };
+    }
+
+    public static Specification<Flight> originCity(String value) {
+        return new Specification<Flight>() {
+            public Predicate toPredicate(Root<Flight> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                Join<Flight, Airport> originJoin = root.join("origin");
+                return cb.equal(cb.lower(originJoin.get("city")), value);
+            }
+        };
+    }
+
+    public static Specification<Flight> destinationCity(String value) {
+        return new Specification<Flight>() {
+            public Predicate toPredicate(Root<Flight> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                Join<Flight, Airport> originJoin = root.join("destination");
+                return cb.equal(cb.lower(originJoin.get("city")), value);
             }
         };
     }
