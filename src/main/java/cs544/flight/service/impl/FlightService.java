@@ -51,74 +51,63 @@ public class FlightService implements IFlightService {
 
     @Override
     public List<Flight> search(String criteria) {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-
         String[] str = criteria.split(";");
-
-        String flightnr = null;
-        Date departureDate = null;
-        Date departureTime = null;
-        Date arrivalDate = null;
-        Date arrivalTime = null;
 
         Specification<Flight> flightSpec = null;
 
         for (String c : str) {
-            String token = c.substring(0, c.indexOf("="));
             System.out.println(c);
-            switch (token) {
-                case "F": {
-                    flightnr = c.substring(c.indexOf("=") + 1);
-                    System.out.println(flightnr);
-                    if(!flightnr.isEmpty()) {
+            String code = c.substring(0, 2);
+            String opt = c.substring(2, 3);
+            String value = c.substring(3);
+            System.out.println(code + " " + opt + " " + value);
+            switch (code) {
+                case "FN": {
+                    if(!value.isEmpty()) {
                         if(flightSpec == null) {
-                            flightSpec = FlightSpecification.flightNr(flightnr);
+                            flightSpec = FlightSpecification.flightNr(value);
                         } else {
-                            flightSpec = Specifications.where(flightSpec).or(FlightSpecification.flightNr(flightnr));
+                            flightSpec = Specifications.where(flightSpec).or(FlightSpecification.flightNr(value));
                         }
                     }
                     break;
                 }
                 case "DD": {
-                    departureDate = parseDate(c.substring(c.indexOf("=") + 1));
-                    if(departureDate != null) {
+                    if(value != null) {
                         if(flightSpec == null) {
-                            flightSpec = FlightSpecification.departureDate(departureDate);
+                            flightSpec = FlightSpecification.departureDate(parseDate(value));
                         } else {
-                            flightSpec = Specifications.where(flightSpec).or(FlightSpecification.departureDate(departureDate));
+                            flightSpec = Specifications.where(flightSpec).or(FlightSpecification.departureDate(parseDate(value)));
                         }
                     }
                     break;
                 }
-                case "DT=": {
-                    departureTime = parseTime(c.substring(c.indexOf("=") + 1));
-                    if(departureTime != null) {
+                case "DT": {
+                    if(value != null) {
                         if(flightSpec == null) {
-                            flightSpec = FlightSpecification.departureTime(departureTime);
+                            flightSpec = FlightSpecification.departureTime(parseTime(value));
                         } else {
-                            flightSpec = Specifications.where(flightSpec).or(FlightSpecification.departureTime(departureTime));
+                            flightSpec = Specifications.where(flightSpec).or(FlightSpecification.departureTime(parseTime(value)));
                         }
                     }
                     break;
                 }
                 case "AD": {
-                    arrivalDate = parseDate(c.substring(c.indexOf("=") + 1));
-                    if(arrivalDate != null) {
+                    if(value != null) {
                         if(flightSpec == null) {
-                            flightSpec = FlightSpecification.arrivalDate(arrivalDate);
+                            flightSpec = FlightSpecification.arrivalDate(parseDate(value));
                         } else {
-                            flightSpec = Specifications.where(flightSpec).or(FlightSpecification.arrivalDate(arrivalDate));
+                            flightSpec = Specifications.where(flightSpec).or(FlightSpecification.arrivalDate(parseDate(value)));
                         }
                     }
                     break;
                 }
-                case "AT=": {
-                    arrivalTime = parseTime(c.substring(c.indexOf("=") + 1));
-                    if(arrivalTime != null) {
+                case "AT": {
+                    if(value != null) {
                         if(flightSpec == null) {
-                            flightSpec = FlightSpecification.arrivalTime(arrivalTime);
+                            flightSpec = FlightSpecification.arrivalTime(parseTime(value));
                         } else {
-                            flightSpec = Specifications.where(flightSpec).or(FlightSpecification.arrivalTime(arrivalTime));
+                            flightSpec = Specifications.where(flightSpec).or(FlightSpecification.arrivalTime(parseTime(value)));
                         }
                     }
                     break;
@@ -130,10 +119,10 @@ public class FlightService implements IFlightService {
         return flightRepository.findAll(flightSpec);
     }
 
-    private DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT,
-            Locale.US);
-    private DateFormat tf = DateFormat.getTimeInstance(DateFormat.SHORT,
-            Locale.US);
+    private DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); //DateFormat.getDateInstance(DateFormat.SHORT, Locale.US);
+    private DateFormat tf = new SimpleDateFormat("HH:mm"); //DateFormat.getTimeInstance(DateFormat.SHORT, Locale.US);
+
+
 
     private Date parseDate(String strDate) {
         Date result = null;
